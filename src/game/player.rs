@@ -1,35 +1,10 @@
-use crate::{
-    config::*,
-    game::component::{self, *},
-};
+use crate::game::component::*;
 use bevy::prelude::*;
-use bevy_prototype_lyon::prelude::*;
+
+use super::bundle::PlayerBundle;
 
 pub fn spawn(mut commands: Commands) {
-    let shape = shapes::RegularPolygon {
-        sides: PLAYER_SIDES,
-        feature: shapes::RegularPolygonFeature::Radius(PLAYER_SIZE),
-        ..default()
-    };
-
-    commands.spawn((
-        Player,
-        InputDirection { x: 0., y: 0. },
-        TurnSpeed {
-            value: PLAYER_TURN_SPEED,
-        },
-        MoveSpeed {
-            value: PLAYER_MOVE_SPEED,
-        },
-        component::Direction { value: 0. },
-        Velocity { x: 0., y: 0. },
-        ShapeBundle {
-            path: GeometryBuilder::build_as(&shape),
-            ..default()
-        },
-        Fill::color(PLAYER_FILL_COLOUR),
-        Stroke::new(PLAYER_STROKE_COLOUR, PLAYER_STROKE_THICKNESS),
-    ));
+    commands.spawn(PlayerBundle::default());
 }
 
 pub fn set_direction(

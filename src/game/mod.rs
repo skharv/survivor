@@ -1,8 +1,10 @@
 use bevy::prelude::*;
 use bevy_prototype_lyon::prelude::*;
 
+mod bundle;
 mod camera;
 mod component;
+mod enemy;
 mod movement;
 mod player;
 
@@ -11,7 +13,7 @@ pub struct GamePlugin;
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(ShapePlugin);
-        app.add_systems(Startup, (camera::spawn, player::spawn));
+        app.add_systems(Startup, (camera::spawn, player::spawn, enemy::spawn));
         app.add_systems(
             Update,
             (

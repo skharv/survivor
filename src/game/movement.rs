@@ -3,21 +3,37 @@ use bevy::prelude::*;
 
 pub fn set_velocity(
     mut query: Query<(
+        &Transform,
         &mut Velocity,
-        &mut InputDirection,
-        &mut MoveSpeed,
+        &InputDirection,
+        &MoveSpeed,
         &mut component::Direction,
+        &Movement,
     )>,
 ) {
-    for (mut velocity, input, move_speed, mut direction) in query.iter_mut() {
+    for (transform, mut velocity, input, move_speed, mut direction, movement) in query.iter_mut() {
         if input.x == 0. && input.y == 0. {
             velocity.x = 0.;
             velocity.y = 0.;
         } else {
-            direction.value = input.y.atan2(input.x);
+            match movement.style {
+                MovementStyle::Forward => {
+                    direction.value = input.y.atan2(input.x);
 
-            velocity.x = move_speed.value * f32::cos(direction.value);
-            velocity.y = move_speed.value * f32::sin(direction.value);
+                    let forward = (transform.rotation * Vec3::Y).truncate();
+
+                    let rot = forward.y.atan2(forward.x);
+
+                    velocity.x = move_speed.value * -f32::sin(rot);
+                    velocity.y = move_speed.value * f32::cos(rot);
+                }
+                MovementStyle::ToPointer => {
+                    direction.value = input.y.atan2(input.x);
+
+                    velocity.x = move_speed.value * f32::cos(direction.value);
+                    velocity.y = move_speed.value * f32::sin(direction.value);
+                }
+            }
         }
     }
 }
