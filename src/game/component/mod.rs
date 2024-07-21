@@ -64,3 +64,8 @@ impl Default for Velocity {
 pub struct MoveSpeed {
     pub value: f32,
 }
+
+#[derive(Component)]
+pub struct SpawnTimer {
+    pub countdown: f32,
+}

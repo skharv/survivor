@@ -36,7 +36,7 @@ impl Default for PlayerBundle {
             direction: component::Direction::default(),
             velocity: component::Velocity::default(),
             movement: component::Movement {
-                style: component::MovementStyle::Pivot,
+                style: PLAYER_MOVEMENT_STYLE,
             },
             shape: ShapeBundle {
                 path: GeometryBuilder::build_as(&shape),
@@ -83,15 +83,11 @@ impl Default for EnemyBundle {
             direction: component::Direction::default(),
             velocity: component::Velocity::default(),
             movement: component::Movement {
-                style: component::MovementStyle::FreeFormForward,
+                style: ENEMY_MOVEMENT_STYLE,
             },
             shape: ShapeBundle {
                 path: GeometryBuilder::build_as(&shape),
-                spatial: SpatialBundle::from_transform(Transform::from_xyz(
-                    100.,
-                    100.,
-                    ENEMY_LAYER,
-                )),
+                spatial: SpatialBundle::from_transform(Transform::from_xyz(0., 0., ENEMY_LAYER)),
                 ..default()
             },
             fill: Fill::color(ENEMY_FILL_COLOUR),

@@ -6,6 +6,18 @@ use bevy::prelude::*;
 mod config;
 mod game;
 
+#[derive(Debug, Clone, Default, Eq, PartialEq, Hash, States)]
+pub enum AppState {
+    #[default]
+    Start,
+    RoundStart,
+    RoundEnd,
+    InGame,
+    Pause,
+    Win,
+    Loss,
+}
+
 fn main() {
     App::new()
         .add_plugins((
@@ -15,5 +27,6 @@ fn main() {
             }),
             game::GamePlugin,
         ))
+        .init_state::<AppState>()
         .run();
 }
