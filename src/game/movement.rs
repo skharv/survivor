@@ -18,6 +18,19 @@ pub fn set_velocity(
         } else {
             match movement.style {
                 MovementStyle::Forward => {
+                    let snapped_x = input.x.round();
+                    let snapped_y = input.y.round();
+
+                    direction.value = snapped_y.atan2(snapped_x);
+
+                    let forward = (transform.rotation * Vec3::Y).truncate();
+
+                    let rot = forward.y.atan2(forward.x);
+
+                    velocity.x = move_speed.value * -f32::sin(rot);
+                    velocity.y = move_speed.value * f32::cos(rot);
+                }
+                MovementStyle::FreeFormForward => {
                     direction.value = input.y.atan2(input.x);
 
                     let forward = (transform.rotation * Vec3::Y).truncate();
@@ -27,7 +40,16 @@ pub fn set_velocity(
                     velocity.x = move_speed.value * -f32::sin(rot);
                     velocity.y = move_speed.value * f32::cos(rot);
                 }
-                MovementStyle::ToPointer => {
+                MovementStyle::Pivot => {
+                    let snapped_x = input.x.round();
+                    let snapped_y = input.y.round();
+
+                    direction.value = snapped_y.atan2(snapped_x);
+
+                    velocity.x = move_speed.value * f32::cos(direction.value);
+                    velocity.y = move_speed.value * f32::sin(direction.value);
+                }
+                MovementStyle::FreeFormPivot => {
                     direction.value = input.y.atan2(input.x);
 
                     velocity.x = move_speed.value * f32::cos(direction.value);

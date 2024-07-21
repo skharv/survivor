@@ -22,7 +22,9 @@ pub struct Enemy;
 pub enum MovementStyle {
     #[default]
     Forward,
-    ToPointer,
+    FreeFormForward,
+    Pivot,
+    FreeFormPivot,
 }
 
 #[derive(Component)]

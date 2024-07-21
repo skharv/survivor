@@ -36,7 +36,7 @@ impl Default for PlayerBundle {
             direction: component::Direction::default(),
             velocity: component::Velocity::default(),
             movement: component::Movement {
-                style: component::MovementStyle::Forward,
+                style: component::MovementStyle::Pivot,
             },
             shape: ShapeBundle {
                 path: GeometryBuilder::build_as(&shape),
@@ -53,6 +53,7 @@ impl Default for PlayerBundle {
 pub struct EnemyBundle {
     pub enemy: component::Enemy,
     pub direction: component::Direction,
+    pub input_direction: component::InputDirection,
     pub movement: component::Movement,
     pub move_speed: component::MoveSpeed,
     pub turn_speed: component::TurnSpeed,
@@ -72,6 +73,7 @@ impl Default for EnemyBundle {
 
         EnemyBundle {
             enemy: component::Enemy,
+            input_direction: component::InputDirection::default(),
             turn_speed: component::TurnSpeed {
                 value: ENEMY_TURN_SPEED,
             },
@@ -81,11 +83,15 @@ impl Default for EnemyBundle {
             direction: component::Direction::default(),
             velocity: component::Velocity::default(),
             movement: component::Movement {
-                style: component::MovementStyle::Forward,
+                style: component::MovementStyle::FreeFormForward,
             },
             shape: ShapeBundle {
                 path: GeometryBuilder::build_as(&shape),
-                spatial: SpatialBundle::from_transform(Transform::from_xyz(0., 0., ENEMY_LAYER)),
+                spatial: SpatialBundle::from_transform(Transform::from_xyz(
+                    100.,
+                    100.,
+                    ENEMY_LAYER,
+                )),
                 ..default()
             },
             fill: Fill::color(ENEMY_FILL_COLOUR),
