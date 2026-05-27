@@ -11,7 +11,7 @@ pub fn set_direction(
     keys: Res<ButtonInput<KeyCode>>,
     mut query: Query<&mut InputDirection, With<Player>>,
 ) {
-    let mut direction = query.single_mut();
+    let Ok(mut direction) = query.single_mut() else { return };
     direction.x = 0.;
     direction.y = 0.;
 

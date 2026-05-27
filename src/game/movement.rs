@@ -62,8 +62,8 @@ pub fn set_velocity(
 
 pub fn update_position(time: Res<Time>, mut query: Query<(&mut Transform, &mut Velocity)>) {
     for (mut transform, velocity) in query.iter_mut() {
-        transform.translation.x += velocity.x * time.delta_seconds();
-        transform.translation.y += velocity.y * time.delta_seconds();
+        transform.translation.x += velocity.x * time.delta_secs();
+        transform.translation.y += velocity.y * time.delta_secs();
     }
 }
 
@@ -80,7 +80,7 @@ pub fn update_rotation(
 
         face_point(
             &mut transform,
-            turn_speed.value * time.delta_seconds(),
+            turn_speed.value * time.delta_secs(),
             to_point,
         );
     }

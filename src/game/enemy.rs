@@ -10,7 +10,7 @@ pub fn face_player(
     mut enemy_query: Query<(&mut InputDirection, &Transform), (With<Enemy>, Without<Player>)>,
     player_query: Query<&Transform, (With<Player>, Without<Enemy>)>,
 ) {
-    let player_transform = player_query.single();
+    let Ok(player_transform) = player_query.single() else { return };
 
     for (mut direction, enemy_transform) in enemy_query.iter_mut() {
         let input =

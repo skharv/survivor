@@ -11,9 +11,8 @@ pub struct PlayerBundle {
     pub move_speed: component::MoveSpeed,
     pub turn_speed: component::TurnSpeed,
     pub velocity: component::Velocity,
-    pub shape: ShapeBundle,
-    pub fill: Fill,
-    pub stroke: Stroke,
+    pub shape: Shape,
+    pub transform: Transform,
 }
 
 impl Default for PlayerBundle {
@@ -38,13 +37,11 @@ impl Default for PlayerBundle {
             movement: component::Movement {
                 style: PLAYER_MOVEMENT_STYLE,
             },
-            shape: ShapeBundle {
-                path: GeometryBuilder::build_as(&shape),
-                spatial: SpatialBundle::from_transform(Transform::from_xyz(0., 0., PLAYER_LAYER)),
-                ..default()
-            },
-            fill: Fill::color(PLAYER_FILL_COLOUR),
-            stroke: Stroke::new(PLAYER_STROKE_COLOUR, PLAYER_STROKE_THICKNESS),
+            shape: ShapeBuilder::with(&shape)
+                .fill(Fill::color(PLAYER_FILL_COLOUR))
+                .stroke(Stroke::new(PLAYER_STROKE_COLOUR, PLAYER_STROKE_THICKNESS))
+                .build(),
+            transform: Transform::from_xyz(0., 0., PLAYER_LAYER),
         }
     }
 }
@@ -58,9 +55,8 @@ pub struct EnemyBundle {
     pub move_speed: component::MoveSpeed,
     pub turn_speed: component::TurnSpeed,
     pub velocity: component::Velocity,
-    pub shape: ShapeBundle,
-    pub fill: Fill,
-    pub stroke: Stroke,
+    pub shape: Shape,
+    pub transform: Transform,
 }
 
 impl Default for EnemyBundle {
@@ -85,13 +81,11 @@ impl Default for EnemyBundle {
             movement: component::Movement {
                 style: ENEMY_MOVEMENT_STYLE,
             },
-            shape: ShapeBundle {
-                path: GeometryBuilder::build_as(&shape),
-                spatial: SpatialBundle::from_transform(Transform::from_xyz(0., 0., ENEMY_LAYER)),
-                ..default()
-            },
-            fill: Fill::color(ENEMY_FILL_COLOUR),
-            stroke: Stroke::new(ENEMY_STROKE_COLOUR, ENEMY_STROKE_THICKNESS),
+            shape: ShapeBuilder::with(&shape)
+                .fill(Fill::color(ENEMY_FILL_COLOUR))
+                .stroke(Stroke::new(ENEMY_STROKE_COLOUR, ENEMY_STROKE_THICKNESS))
+                .build(),
+            transform: Transform::from_xyz(0., 0., ENEMY_LAYER),
         }
     }
 }

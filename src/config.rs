@@ -9,7 +9,7 @@ pub const PLAYER_STROKE_THICKNESS: f32 = 2.5;
 pub const PLAYER_TURN_SPEED: f32 = 10.0;
 pub const PLAYER_MOVE_SPEED: f32 = 100.0;
 pub const PLAYER_SIDES: usize = 4;
-pub const PLAYER_LAYER: f32 = 10.0;
+pub const PLAYER_LAYER: f32 = 100.0;
 pub const PLAYER_MOVEMENT_STYLE: MovementStyle = MovementStyle::Pivot;
 
 //Enemy
@@ -20,5 +20,5 @@ pub const ENEMY_STROKE_THICKNESS: f32 = 2.0;
 pub const ENEMY_TURN_SPEED: f32 = 5.0;
 pub const ENEMY_MOVE_SPEED: f32 = 50.0;
 pub const ENEMY_SIDES: usize = 7;
-pub const ENEMY_LAYER: f32 = 5.0;
+pub const ENEMY_LAYER: f32 = 20.0;
 pub const ENEMY_MOVEMENT_STYLE: MovementStyle = MovementStyle::FreeFormForward;
